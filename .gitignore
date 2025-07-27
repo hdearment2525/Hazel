@@ -1,0 +1,4 @@
+*.parameters.json
+*.secrets.bicep
+*.bak
+*.log
