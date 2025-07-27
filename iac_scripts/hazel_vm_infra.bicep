@@ -1,9 +1,14 @@
+// location of region, for Hazel
 param location string = resourceGroup().location
+// vm name
 param vmName string = 'hvm01'
+// username to be given as param
 param ausername string
+// secure pass given as param
 @secure()
 param apassword string
 
+// storage resource for vm diagnostics storage
 resource storage 'Microsoft.Storage/storageAccounts@2025-01-01' = {
   name: 'diag${uniqueString(resourceGroup().id)}'
   location: location
@@ -14,17 +19,20 @@ resource storage 'Microsoft.Storage/storageAccounts@2025-01-01' = {
   properties: {}
 }
 
+// static public ip address
 resource pip 'Microsoft.Network/publicIPAddresses@2024-07-01' = {
   name: '${vmName}-pip'
   location: location
   sku: {name: 'Standard'}
-  
+  // has to be static given free tier
   properties: {
     publicIPAllocationMethod: 'Static'
     
   }
 
 }
+
+// virtual network for infrasture and vm deployment
 resource vnet 'Microsoft.Network/virtualNetworks@2024-07-01' = {
   name: '${vmName}-vnet'
   location: location
@@ -44,6 +52,9 @@ resource vnet 'Microsoft.Network/virtualNetworks@2024-07-01' = {
     ]
   }
 }
+
+// network interface controller
+// attaches vm to a subnet
 resource nic 'Microsoft.Network/networkInterfaces@2024-07-01' = {
   name: '${vmName}-nic'
   location: location
@@ -69,11 +80,13 @@ resource nic 'Microsoft.Network/networkInterfaces@2024-07-01' = {
 ]
 }
 
+// actual virtual machine declaration
 resource ubuntuVM 'Microsoft.Compute/virtualMachines@2024-11-01' = {
   name: vmName
   location: location
   properties: {
     hardwareProfile: {
+      // modern v2 iso storage
       vmSize: 'Standard_D2s_v3'
     }
     osProfile: {
@@ -84,6 +97,8 @@ resource ubuntuVM 'Microsoft.Compute/virtualMachines@2024-11-01' = {
         disablePasswordAuthentication: false
       }
     }
+    // offer gave me trouble when defining, but it has to match 
+    // with sku
     storageProfile: {
       imageReference: {
         publisher: 'Canonical'
