@@ -1,10 +1,7 @@
 ---
 title: Docs/Portfolio
 ---
-# Welcome
----
+## Welcome
+-[Home](index.md)
 -[AD Password Recovery](passwd-recovery.md)
----
----
 -[User Lifecycle](user-lifecycle.md)
----
