@@ -29,7 +29,7 @@ resource networkSecurityGroup 'Microsoft.Network/networkSecurityGroups@2024-07-0
           sourceAddressPrefix: sourceip
           destinationAddressPrefix: '*'
           access: access
-          priority: 100
+          priority: 101
           direction: direction
         }
       }
