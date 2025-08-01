@@ -1,5 +1,6 @@
 ---
-title: Azure & Entra ID
+title: Azure
+nav_order: 3
 ---
 
 Test

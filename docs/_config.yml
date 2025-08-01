@@ -1,7 +1,8 @@
 title: My IT Docs
 remote_theme: pmarsceill/just-the-docs
+color_scheme: dark
 
 nav:
-  - Home: index.md
-  - Cloud: azure.md
-  - Local: active_directory_local.md
+  - Home: Home
+  - Cloud: Azure
+  - Local: Active Directory

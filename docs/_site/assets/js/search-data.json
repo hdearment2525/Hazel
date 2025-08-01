@@ -1,65 +1,65 @@
 {"0": {
-    "doc": "Local Active Directory",
+    "doc": "Active Directory",
     "title": "User Life Cycle",
     "content": " ",
     "url": "/active_directory_local.html#user-life-cycle",
     
     "relUrl": "/active_directory_local.html#user-life-cycle"
   },"1": {
-    "doc": "Local Active Directory",
+    "doc": "Active Directory",
     "title": "GPO’s",
     "content": " ",
     "url": "/active_directory_local.html#gpos",
     
     "relUrl": "/active_directory_local.html#gpos"
   },"2": {
-    "doc": "Local Active Directory",
-    "title": "Local Active Directory",
+    "doc": "Active Directory",
+    "title": "Active Directory",
     "content": "Password Recovery . ",
     "url": "/active_directory_local.html",
     
     "relUrl": "/active_directory_local.html"
   },"3": {
-    "doc": "Azure & Entra ID",
-    "title": "Azure & Entra ID",
+    "doc": "Azure",
+    "title": "Azure",
     "content": "Test . ",
     "url": "/azure.html",
     
     "relUrl": "/azure.html"
   },"4": {
-    "doc": "Password Recovery",
-    "title": "Using Powershell:",
-    "content": ". | Searching for all accounts that are locked out. | Unlocking account based on SamAccountName | Checking to see if the account is still locked out, which it isn’t | . ",
-    "url": "/passwd-recovery.html#using-powershell",
+    "doc": "Home",
+    "title": "Home",
+    "content": "Welcome to my Documentation &amp; Portfolio! . ",
+    "url": "/",
     
-    "relUrl": "/passwd-recovery.html#using-powershell"
+    "relUrl": "/"
   },"5": {
-    "doc": "Password Recovery",
-    "title": "Using ADUC:",
-    "content": ". | Open Active Directory Users and Computers | Navigate to the user who is locked out. | Check Unlock Account and Apply | . ",
-    "url": "/passwd-recovery.html#using-aduc",
-    
-    "relUrl": "/passwd-recovery.html#using-aduc"
-  },"6": {
-    "doc": "Password Recovery",
-    "title": "Potential Improvements:",
-    "content": ". | Automation | Self Service like on Azure | . ",
-    "url": "/passwd-recovery.html#potential-improvements",
-    
-    "relUrl": "/passwd-recovery.html#potential-improvements"
-  },"7": {
     "doc": "Password Recovery",
     "title": "Password Recovery",
     "content": ". Our user is locked out of their account after 5 failed login attempts. I have two options: . | Use Powershell | Use AD Users &amp; Groups | . ",
     "url": "/passwd-recovery.html",
     
     "relUrl": "/passwd-recovery.html"
-  },"8": {
-    "doc": "Home",
-    "title": "Home",
-    "content": "# Home Welcome to my Documentation & Portfolio! ",
-    "url": "/",
+  },"6": {
+    "doc": "Password Recovery",
+    "title": "Using Powershell:",
+    "content": ". | Searching for all accounts that are locked out. | Unlocking account based on SamAccountName | Checking to see if the account is still locked out, which it isn’t | . ",
+    "url": "/passwd-recovery.html#using-powershell",
     
-    "relUrl": "/"
+    "relUrl": "/passwd-recovery.html#using-powershell"
+  },"7": {
+    "doc": "Password Recovery",
+    "title": "Using ADUC:",
+    "content": ". | Open Active Directory Users and Computers | Navigate to the user who is locked out. | Check Unlock Account and Apply | . ",
+    "url": "/passwd-recovery.html#using-aduc",
+    
+    "relUrl": "/passwd-recovery.html#using-aduc"
+  },"8": {
+    "doc": "Password Recovery",
+    "title": "Potential Improvements:",
+    "content": ". | Automation | Self Service like on Azure | . ",
+    "url": "/passwd-recovery.html#potential-improvements",
+    
+    "relUrl": "/passwd-recovery.html#potential-improvements"
   }
 }

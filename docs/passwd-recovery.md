@@ -1,6 +1,8 @@
 ---
-title: Password Recovery
+nav_exclude: true
 ---
+
+# Password Recovery
 
 ---
 

@@ -1,5 +1,6 @@
 ---
-title: Local Active Directory
+title: Active Directory
+nav_order: 2
 ---
 
 [Password Recovery](passwd-recovery.md)
