@@ -1,4 +1,7 @@
-# Password Recovery
+---
+title: Password Recovery
+---
+
 ---
 
 ![Screenshot](./images/lockout_gui.png)

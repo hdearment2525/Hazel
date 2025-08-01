@@ -1,6 +1,7 @@
 ---
 title: Local Active Directory
 ---
+
 [Password Recovery](passwd-recovery.md)
 
 
