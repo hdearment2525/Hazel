@@ -7,6 +7,6 @@ nav_order: 2
 
 [GPO Testing](gpo-testing.md)
 
+[User Life Cycle](userLife.md)
 
-# User Life Cycle
 

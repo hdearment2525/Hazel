@@ -1,86 +1,86 @@
 {"0": {
     "doc": "Active Directory",
-    "title": "User Life Cycle",
-    "content": " ",
-    "url": "/active_directory_local.html#user-life-cycle",
-    
-    "relUrl": "/active_directory_local.html#user-life-cycle"
-  },"1": {
-    "doc": "Active Directory",
     "title": "Active Directory",
-    "content": "Password Recovery . GPO Testing . ",
+    "content": "Password Recovery . GPO Testing . User Life Cycle . ",
     "url": "/active_directory_local.html",
     
     "relUrl": "/active_directory_local.html"
-  },"2": {
+  },"1": {
     "doc": "Azure",
     "title": "Azure",
     "content": "Test . ",
     "url": "/azure.html",
     
     "relUrl": "/azure.html"
-  },"3": {
+  },"2": {
     "doc": "GPO Testing",
     "title": "GPO Testing",
     "content": ". Testing Group Policy Objects: . | First: created a very basic gpo with just a name and comment | Second: before even deciding what to do in the gpo I link it through powershell to the OU | . Appling a policy: . | The policy should now be visible in the Group Policy Management Application | Then you can right click it to edit and find what you want to do | For the control panel it is pretty straight-forward as there is an adminstrative preset | So I went in to the policy called prohibit access to control panel and enabled/applied it | . Another way to link: . | While the powershell linking should work most of the time. You can also link it in the GPMC | So to do that you simply drag the GPO into the ou you want it to apply to. | . Trying to use Control Panel: . | Since this user is a part of the affected OU they are not able to access the control panel! | . Some thoughts: . | I had to add the user to the OU since a group member doesn’t inherit the group ou gpo’s | My current plan to make this better would be to automate it. | Specifically if they were added to a group with ou they would automatically be added to it on creation and activation. | . ",
     "url": "/gpo-testing.html",
     
     "relUrl": "/gpo-testing.html"
-  },"4": {
+  },"3": {
     "doc": "GPO Automating Group to OU",
     "title": "GPO Automating Group to OU",
     "content": ". While trying to setup the gpo for blocking control panel I ran into a problem. I had a slight misunderstanding on groups and organizational units so I decided to fix the issue. By automatically adding users in a group to the ou of their group since its not inherited that way. . So the marketing department is already set up, but the one member in the Finance Department is not! . Here is my script: . | For now it asks which department you would like to fix | Then it gets the distinguished name and tries to move the user into the target path | If they are already in the OU then noting happens, if they are in another OU they get a warning | Finally if they arent apart of any ou then they are added to the groups Organziation Unit | . . Finally as you can see our one member (Jessie Stark) of marketing is now in the OU with their parent group! . ",
     "url": "/gposcript1.html",
     
     "relUrl": "/gposcript1.html"
-  },"5": {
+  },"4": {
     "doc": "Home",
     "title": "Home",
     "content": "Welcome to my Documentation &amp; Portfolio! . ",
     "url": "/",
     
     "relUrl": "/"
-  },"6": {
+  },"5": {
     "doc": "Password Recovery",
     "title": "Password Recovery",
     "content": ". Our user is locked out of their account after 5 failed login attempts. I have two options: . | Use Powershell | Use AD Users &amp; Groups | . ",
     "url": "/passwd-recovery.html",
     
     "relUrl": "/passwd-recovery.html"
-  },"7": {
+  },"6": {
     "doc": "Password Recovery",
     "title": "Using Powershell:",
     "content": ". | Searching for all accounts that are locked out. | Unlocking account based on SamAccountName | Checking to see if the account is still locked out, which it isn’t | . ",
     "url": "/passwd-recovery.html#using-powershell",
     
     "relUrl": "/passwd-recovery.html#using-powershell"
-  },"8": {
+  },"7": {
     "doc": "Password Recovery",
     "title": "Using ADUC:",
     "content": ". | Open Active Directory Users and Computers | Navigate to the user who is locked out. | Check Unlock Account and Apply | . ",
     "url": "/passwd-recovery.html#using-aduc",
     
     "relUrl": "/passwd-recovery.html#using-aduc"
-  },"9": {
+  },"8": {
     "doc": "Password Recovery",
     "title": "Potential Improvements:",
     "content": ". | Automation | Self Service like on Azure | . ",
     "url": "/passwd-recovery.html#potential-improvements",
     
     "relUrl": "/passwd-recovery.html#potential-improvements"
-  },"10": {
+  },"9": {
     "doc": "PowerShell",
     "title": "Powershell Scripts",
     "content": "GPO User into OU from Group . ",
     "url": "/powershell.html#powershell-scripts",
     
     "relUrl": "/powershell.html#powershell-scripts"
-  },"11": {
+  },"10": {
     "doc": "PowerShell",
     "title": "PowerShell",
     "content": " ",
     "url": "/powershell.html",
     
     "relUrl": "/powershell.html"
+  },"11": {
+    "doc": "User LifeCycle AD",
+    "title": "User LifeCycle AD",
+    "content": "Basic user lifecycle: . | Create User | Add to Group | Change Role | Disable User | Remove from Group | . Creating User: . Add to Group: . Changing Roles: . Disabling Account: . | Note: I had to create an OU for terminated employees | Then I added Angle to the Offboarded OU | . Deleting From Group . Notes: . | May script in future but wanted the basics first | . ",
+    "url": "/userLife.html",
+    
+    "relUrl": "/userLife.html"
   }
 }
