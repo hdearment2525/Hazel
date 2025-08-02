@@ -27,39 +27,60 @@
     
     "relUrl": "/gpo-testing.html"
   },"4": {
+    "doc": "GPO Automating Group to OU",
+    "title": "GPO Automating Group to OU",
+    "content": ". While trying to setup the gpo for blocking control panel I ran into a problem. I had a slight misunderstanding on groups and organizational units so I decided to fix the issue. By automatically adding users in a group to the ou of their group since its not inherited that way. . So the marketing department is already set up, but the one member in the Finance Department is not! . Here is my script: . | For now it asks which department you would like to fix | Then it gets the distinguished name and tries to move the user into the target path | If they are already in the OU then noting happens, if they are in another OU they get a warning | Finally if they arent apart of any ou then they are added to the groups Organziation Unit | . . Finally as you can see our one member (Jessie Stark) of marketing is now in the OU with their parent group! . ",
+    "url": "/gposcript1.html",
+    
+    "relUrl": "/gposcript1.html"
+  },"5": {
     "doc": "Home",
     "title": "Home",
     "content": "Welcome to my Documentation &amp; Portfolio! . ",
     "url": "/",
     
     "relUrl": "/"
-  },"5": {
+  },"6": {
     "doc": "Password Recovery",
     "title": "Password Recovery",
     "content": ". Our user is locked out of their account after 5 failed login attempts. I have two options: . | Use Powershell | Use AD Users &amp; Groups | . ",
     "url": "/passwd-recovery.html",
     
     "relUrl": "/passwd-recovery.html"
-  },"6": {
+  },"7": {
     "doc": "Password Recovery",
     "title": "Using Powershell:",
     "content": ". | Searching for all accounts that are locked out. | Unlocking account based on SamAccountName | Checking to see if the account is still locked out, which it isn’t | . ",
     "url": "/passwd-recovery.html#using-powershell",
     
     "relUrl": "/passwd-recovery.html#using-powershell"
-  },"7": {
+  },"8": {
     "doc": "Password Recovery",
     "title": "Using ADUC:",
     "content": ". | Open Active Directory Users and Computers | Navigate to the user who is locked out. | Check Unlock Account and Apply | . ",
     "url": "/passwd-recovery.html#using-aduc",
     
     "relUrl": "/passwd-recovery.html#using-aduc"
-  },"8": {
+  },"9": {
     "doc": "Password Recovery",
     "title": "Potential Improvements:",
     "content": ". | Automation | Self Service like on Azure | . ",
     "url": "/passwd-recovery.html#potential-improvements",
     
     "relUrl": "/passwd-recovery.html#potential-improvements"
+  },"10": {
+    "doc": "PowerShell",
+    "title": "Powershell Scripts",
+    "content": "GPO User into OU from Group . ",
+    "url": "/powershell.html#powershell-scripts",
+    
+    "relUrl": "/powershell.html#powershell-scripts"
+  },"11": {
+    "doc": "PowerShell",
+    "title": "PowerShell",
+    "content": " ",
+    "url": "/powershell.html",
+    
+    "relUrl": "/powershell.html"
   }
 }
