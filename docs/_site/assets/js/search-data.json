@@ -1,7 +1,7 @@
 {"0": {
     "doc": "Active Directory",
     "title": "Active Directory",
-    "content": "Password Recovery . GPO Testing . User Life Cycle . ",
+    "content": "Password Recovery . GPO Testing . User Life Cycle . Home Folder/Profile Redirection . ACL’s . ",
     "url": "/active_directory_local.html",
     
     "relUrl": "/active_directory_local.html"
@@ -28,54 +28,61 @@
     "relUrl": "/gposcript1.html"
   },"4": {
     "doc": "Home",
+    "title": "Hailee DeArment’s Documentation &amp; Portfolio!",
+    "content": ". ",
+    "url": "/#hailee-dearments-documentation--portfolio",
+    
+    "relUrl": "/#hailee-dearments-documentation--portfolio"
+  },"5": {
+    "doc": "Home",
     "title": "Home",
-    "content": "Welcome to my Documentation &amp; Portfolio! . ",
+    "content": " ",
     "url": "/",
     
     "relUrl": "/"
-  },"5": {
+  },"6": {
     "doc": "Password Recovery",
     "title": "Password Recovery",
     "content": ". Our user is locked out of their account after 5 failed login attempts. I have two options: . | Use Powershell | Use AD Users &amp; Groups | . ",
     "url": "/passwd-recovery.html",
     
     "relUrl": "/passwd-recovery.html"
-  },"6": {
+  },"7": {
     "doc": "Password Recovery",
     "title": "Using Powershell:",
     "content": ". | Searching for all accounts that are locked out. | Unlocking account based on SamAccountName | Checking to see if the account is still locked out, which it isn’t | . ",
     "url": "/passwd-recovery.html#using-powershell",
     
     "relUrl": "/passwd-recovery.html#using-powershell"
-  },"7": {
+  },"8": {
     "doc": "Password Recovery",
     "title": "Using ADUC:",
     "content": ". | Open Active Directory Users and Computers | Navigate to the user who is locked out. | Check Unlock Account and Apply | . ",
     "url": "/passwd-recovery.html#using-aduc",
     
     "relUrl": "/passwd-recovery.html#using-aduc"
-  },"8": {
+  },"9": {
     "doc": "Password Recovery",
     "title": "Potential Improvements:",
     "content": ". | Automation | Self Service like on Azure | . ",
     "url": "/passwd-recovery.html#potential-improvements",
     
     "relUrl": "/passwd-recovery.html#potential-improvements"
-  },"9": {
+  },"10": {
     "doc": "PowerShell",
     "title": "Powershell Scripts",
     "content": "GPO User into OU from Group . ",
     "url": "/powershell.html#powershell-scripts",
     
     "relUrl": "/powershell.html#powershell-scripts"
-  },"10": {
+  },"11": {
     "doc": "PowerShell",
     "title": "PowerShell",
     "content": " ",
     "url": "/powershell.html",
     
     "relUrl": "/powershell.html"
-  },"11": {
+  },"12": {
     "doc": "User LifeCycle AD",
     "title": "User LifeCycle AD",
     "content": "Basic user lifecycle: . | Create User | Add to Group | Change Role | Disable User | Remove from Group | . Creating User: . Add to Group: . Changing Roles: . Disabling Account: . | Note: I had to create an OU for terminated employees | Then I added Angle to the Offboarded OU | . Deleting From Group . Notes: . | May script in future but wanted the basics first | . ",
