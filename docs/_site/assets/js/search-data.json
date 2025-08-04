@@ -6,97 +6,188 @@
     
     "relUrl": "/active_directory_local.html"
   },"1": {
+    "doc": "Azure Powershell Helpers",
+    "title": "Azure Powershell Helpers",
+    "content": " ",
+    "url": "/azps.html",
+    
+    "relUrl": "/azps.html"
+  },"2": {
+    "doc": "Azure Powershell Helpers",
+    "title": "Installing AZ Module:",
+    "content": ". # Open Powershell as an Admin Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force . ",
+    "url": "/azps.html#installing-az-module",
+    
+    "relUrl": "/azps.html#installing-az-module"
+  },"3": {
+    "doc": "Azure Powershell Helpers",
+    "title": "Login to Azure Account:",
+    "content": ". Connect-AzAccount . ",
+    "url": "/azps.html#login-to-azure-account",
+    
+    "relUrl": "/azps.html#login-to-azure-account"
+  },"4": {
+    "doc": "Azure Powershell Helpers",
+    "title": "Create Resource Group",
+    "content": ". New-AzResourceGroup -Name \"Resource Name\" -Location \"Location\" . ",
+    "url": "/azps.html#create-resource-group",
+    
+    "relUrl": "/azps.html#create-resource-group"
+  },"5": {
+    "doc": "Azure Powershell Helpers",
+    "title": "Create Resource Group in Azure",
+    "content": ". | Click Hamburger Dropdown and select Resource Groups: | . | Click Create and Type in a Name | . | Click Review &amp; Create | . | Click Create | . | Your Group is Created! | . ",
+    "url": "/azps.html#create-resource-group-in-azure",
+    
+    "relUrl": "/azps.html#create-resource-group-in-azure"
+  },"6": {
+    "doc": "Azure Powershell Helpers",
+    "title": "Confirm Resource Group",
+    "content": ". Get-AzResourceGroup ResourceGroupName : TestGroup Location : westus2 ProvisioningState : Succeeded Tags : ResourceId : /subscriptions/a63485bf-c8f9-49c4-97d7-30b813966f8e/resourceGroups/TestGroup . ",
+    "url": "/azps.html#confirm-resource-group",
+    
+    "relUrl": "/azps.html#confirm-resource-group"
+  },"7": {
+    "doc": "Azure Powershell Helpers",
+    "title": "Basic Script Deployment",
+    "content": ". New-AzResourceGroupDeployment ` -ResourceGroupName \"TestGroup\" ` -TemplateFile \"testgroupvm.bicep\" ` -TemplateParameterObject @{ auser=\"tuser\" apass=\"tpass\" } . ",
+    "url": "/azps.html#basic-script-deployment",
+    
+    "relUrl": "/azps.html#basic-script-deployment"
+  },"8": {
     "doc": "Azure",
     "title": "Azure",
     "content": "Infrastructure as Code (VM) . ",
     "url": "/azure.html",
     
     "relUrl": "/azure.html"
-  },"2": {
+  },"9": {
     "doc": "GPO Testing",
     "title": "GPO Testing",
     "content": ". Testing Group Policy Objects: . | First: created a very basic gpo with just a name and comment | Second: before even deciding what to do in the gpo I link it through powershell to the OU | . Appling a policy: . | The policy should now be visible in the Group Policy Management Application | Then you can right click it to edit and find what you want to do | For the control panel it is pretty straight-forward as there is an adminstrative preset | So I went in to the policy called prohibit access to control panel and enabled/applied it | . Another way to link: . | While the powershell linking should work most of the time. You can also link it in the GPMC | So to do that you simply drag the GPO into the ou you want it to apply to. | . Trying to use Control Panel: . | Since this user is a part of the affected OU they are not able to access the control panel! | . Some thoughts: . | I had to add the user to the OU since a group member doesn’t inherit the group ou gpo’s | My current plan to make this better would be to automate it. | Specifically if they were added to a group with ou they would automatically be added to it on creation and activation. | . ",
     "url": "/gpo-testing.html",
     
     "relUrl": "/gpo-testing.html"
-  },"3": {
+  },"10": {
     "doc": "GPO Automating Group to OU",
     "title": "GPO Automating Group to OU",
     "content": ". While trying to setup the gpo for blocking control panel I ran into a problem. I had a slight misunderstanding on groups and organizational units so I decided to fix the issue. By automatically adding users in a group to the ou of their group since its not inherited that way. . So the marketing department is already set up, but the one member in the Finance Department is not! . Here is my script: . | For now it asks which department you would like to fix | Then it gets the distinguished name and tries to move the user into the target path | If they are already in the OU then noting happens, if they are in another OU they get a warning | Finally if they arent apart of any ou then they are added to the groups Organziation Unit | . . Finally as you can see our one member (Jessie Stark) of marketing is now in the OU with their parent group! . ",
     "url": "/gposcript1.html",
     
     "relUrl": "/gposcript1.html"
-  },"4": {
+  },"11": {
     "doc": "Infrastructure as Code Deploying A VM",
     "title": "Infrastructure as Code Deploying A VM",
     "content": ". ",
     "url": "/iac.html",
     
     "relUrl": "/iac.html"
-  },"5": {
+  },"12": {
     "doc": "Infrastructure as Code Deploying A VM",
-    "title": "Creating the Resources",
-    "content": "Paramaters: . // location of region, for Hazel param location string = resourceGroup().location // vm name param vmName string = 'tname01' // username to be given as param param ausername string // secure pass given as param @secure() param apassword string . Notes: . | In order to maintain some security I really didn’t allow too many hard coded paramaters. | Also making sure to define the password param as @secure() | . Virtual Machine: . // actual virtual machine declaration resource ubuntuVM 'Microsoft.Compute/virtualMachines@2024-11-01' = { name: vmName location: location properties: { hardwareProfile: { // modern v2 iso storage vmSize: 'Standard_D2s_v3' } osProfile: { computerName: vmName adminUsername: ausername adminPassword: apassword linuxConfiguration: { disablePasswordAuthentication: false } } // offer gave me trouble when defining, but it has to match // with sku storageProfile: { imageReference: { publisher: 'Canonical' offer: '0001-com-ubuntu-server-focal' sku: '20_04-lts-gen2' version: 'latest' } osDisk: { createOption: 'FromImage' } } networkProfile: { networkInterfaces: [ { id: nic.id } ] } diagnosticsProfile: { bootDiagnostics: { enabled: true storageUri: 'https://${storage.name}.blob.${environment().suffixes.storage}/' } } } dependsOn: [ nic storage ] } . Notes: . | So a few things, building a vm resource requrieres a lot other components | Storage for diagnostics | Virtual Net | Network Interface | Public IP (due to free subscription) | . Diagnostic Storage: . // storage resource for vm diagnostics storage resource storage 'Microsoft.Storage/storageAccounts@2025-01-01' = { name: 'diag${uniqueString(resourceGroup().id)}' location: location sku: { name: 'Standard_LRS' } kind: 'StorageV2' properties: {} } . Virtual Net: . // virtual network for infrasture and vm deployment resource vnet 'Microsoft.Network/virtualNetworks@2024-07-01' = { name: '${vmName}-vnet' location: location properties: { addressSpace: { addressPrefixes: [ '10.0.0.0/16' ] } subnets: [ { name: 'default' properties: { addressPrefix: '10.0.0.0/24' } } ] } } . Public IP: . // static public ip address resource pip 'Microsoft.Network/publicIPAddresses@2024-07-01' = { name: '${vmName}-pip' location: location sku: {name: 'Standard'} // has to be static given free tier properties: { publicIPAllocationMethod: 'Static' } } . Network Interface: . // network interface controller // attaches vm to a subnet resource nic 'Microsoft.Network/networkInterfaces@2024-07-01' = { name: '${vmName}-nic' location: location properties: { ipConfigurations: [ { name: 'ipconfig1' properties: { privateIPAllocationMethod: 'Dynamic' publicIPAddress: { id: pip.id } subnet: { id: resourceId('Microsoft.Network/virtualNetworks/subnets', '${vmName}-vnet', 'default') } } } ] } dependsOn: [ vnet pip ] } . ",
-    "url": "/iac.html#creating-the-resources",
+    "title": "Creating the Resources and VM",
+    "content": "Deployment . Paramaters: . // location of region, for Hazel param location string = resourceGroup().location // vm name param vmName string = 'tname01' // username to be given as param param ausername string // secure pass given as param @secure() param apassword string . Notes: . | In order to maintain some security I really didn’t allow too many hard coded paramaters. | Also making sure to define the password param as @secure() | . Virtual Machine: . | So a few things, building a vm resource requrieres a lot of other components | Storage for diagnostics | Virtual Net | Network Interface | Public IP (due to free subscription) | . ",
+    "url": "/iac.html#creating-the-resources-and-vm",
     
-    "relUrl": "/iac.html#creating-the-resources"
-  },"6": {
+    "relUrl": "/iac.html#creating-the-resources-and-vm"
+  },"13": {
+    "doc": "Infrastructure as Code Deploying A VM",
+    "title": "Diagnostic Storage:",
+    "content": ". // storage resource for vm diagnostics storage resource storage 'Microsoft.Storage/storageAccounts@2025-01-01' = { name: 'diag${uniqueString(resourceGroup().id)}' location: location sku: { name: 'Standard_LRS' } kind: 'StorageV2' properties: {} } . On Dianostic Storage: . | This is something that I didn’t consider you would need while deploying | But it is important for boot failures and low level logs | . ",
+    "url": "/iac.html#diagnostic-storage",
+    
+    "relUrl": "/iac.html#diagnostic-storage"
+  },"14": {
+    "doc": "Infrastructure as Code Deploying A VM",
+    "title": "Public IP:",
+    "content": ". // static public ip address resource pip 'Microsoft.Network/publicIPAddresses@2024-07-01' = { name: '${vmName}-pip' location: location sku: {name: 'Standard'} // has to be static given free tier properties: { publicIPAllocationMethod: 'Static' } } . On Public IP (PIP): . | This is something that I only had to do because of the free subscribtion of azure | So I wasn’t able to use ‘dynamic’ allocation for the IPv4 | . ",
+    "url": "/iac.html#public-ip",
+    
+    "relUrl": "/iac.html#public-ip"
+  },"15": {
+    "doc": "Infrastructure as Code Deploying A VM",
+    "title": "Virtual Net:",
+    "content": ". // virtual network for infrasture and vm deployment resource vnet 'Microsoft.Network/virtualNetworks@2024-07-01' = { name: '${vmName}-vnet' location: location properties: { addressSpace: { addressPrefixes: [ '10.0.0.0/16' ] } subnets: [ { name: 'default' properties: { addressPrefix: '10.0.0.0/24' } } ] } } . On vNets: . | The vNet is like a virtual version of a LAN | Your VM uses the vNet to communcate with eachother | . ",
+    "url": "/iac.html#virtual-net",
+    
+    "relUrl": "/iac.html#virtual-net"
+  },"16": {
+    "doc": "Infrastructure as Code Deploying A VM",
+    "title": "Network Interface:",
+    "content": ". // network interface controller // attaches vm to a subnet resource nic 'Microsoft.Network/networkInterfaces@2024-07-01' = { name: '${vmName}-nic' location: location properties: { ipConfigurations: [ { name: 'ipconfig1' properties: { privateIPAllocationMethod: 'Dynamic' publicIPAddress: { id: pip.id } subnet: { id: resourceId('Microsoft.Network/virtualNetworks/subnets', '${vmName}-vnet', 'default') } } } ] } dependsOn: [ vnet pip ] } . On NIC’s: . | Get’s a private and public IP from the subnet in our vNet | Required for the VM to talk to the network | . ",
+    "url": "/iac.html#network-interface",
+    
+    "relUrl": "/iac.html#network-interface"
+  },"17": {
+    "doc": "Infrastructure as Code Deploying A VM",
+    "title": "Virtual Machine:",
+    "content": ". // actual virtual machine declaration resource ubuntuVM 'Microsoft.Compute/virtualMachines@2024-11-01' = { name: vmName location: location properties: { hardwareProfile: { // modern v2 iso storage vmSize: 'Standard_D2s_v3' } osProfile: { computerName: vmName adminUsername: ausername adminPassword: apassword linuxConfiguration: { disablePasswordAuthentication: false } } // offer gave me trouble when defining, but it has to match // with sku storageProfile: { imageReference: { publisher: 'Canonical' offer: '0001-com-ubuntu-server-focal' sku: '20_04-lts-gen2' version: 'latest' } osDisk: { createOption: 'FromImage' } } networkProfile: { networkInterfaces: [ { id: nic.id } ] } diagnosticsProfile: { bootDiagnostics: { enabled: true storageUri: 'https://${storage.name}.blob.${environment().suffixes.storage}/' } } } dependsOn: [ nic storage ] } . On Virtual Machine: . | First thing were going to do is declare an UbuntuVm resource | Then some parameters name and location from our params | Then to properties which is what we did all of the dependencies for! | . | Hardware Profile is the kind of machine were using on the cloud | OS Profile is our admin login information and will be supplied as a parameter. | Storage profile is basically the type of storage drives were using . | Note: Hardware Profile and Storage Profile must be compatible. | . | OS disk is created from our VM Image | Is our network profile, which we set up with the pip, vNet, and nic | Finally our boot diagnostics which we set up earlier as well. | . ",
+    "url": "/iac.html#virtual-machine",
+    
+    "relUrl": "/iac.html#virtual-machine"
+  },"18": {
+    "doc": "Infrastructure as Code Deploying A VM",
+    "title": "Deployment:",
+    "content": ". | Create an azure account . | Install Az in Powershell | . | Create a resource group . | In Powershell | Through the Azure Portal | . | Confirm Resource Group Exists . | Confirm Group | . | Deploy Script . | Basic Script Deployment | Install Bicep if you haven’t then run script | . | . winget install -e --id Microsoft.Bicep . | Deployed | . Powershell: . Azure: . Notes: . | Can be improved with a json param file. TBD | Will need to still create security groups! | . ",
+    "url": "/iac.html#deployment",
+    
+    "relUrl": "/iac.html#deployment"
+  },"19": {
     "doc": "Home",
     "title": "Hailee DeArment’s Documentation &amp; Portfolio!",
     "content": ". ",
     "url": "/#hailee-dearments-documentation--portfolio",
     
     "relUrl": "/#hailee-dearments-documentation--portfolio"
-  },"7": {
+  },"20": {
     "doc": "Home",
     "title": "Home",
     "content": " ",
     "url": "/",
     
     "relUrl": "/"
-  },"8": {
+  },"21": {
     "doc": "Password Recovery",
     "title": "Password Recovery",
     "content": ". Our user is locked out of their account after 5 failed login attempts. I have two options: . | Use Powershell | Use AD Users &amp; Groups | . ",
     "url": "/passwd-recovery.html",
     
     "relUrl": "/passwd-recovery.html"
-  },"9": {
+  },"22": {
     "doc": "Password Recovery",
     "title": "Using Powershell:",
     "content": ". | Searching for all accounts that are locked out. | Unlocking account based on SamAccountName | Checking to see if the account is still locked out, which it isn’t | . ",
     "url": "/passwd-recovery.html#using-powershell",
     
     "relUrl": "/passwd-recovery.html#using-powershell"
-  },"10": {
+  },"23": {
     "doc": "Password Recovery",
     "title": "Using ADUC:",
     "content": ". | Open Active Directory Users and Computers | Navigate to the user who is locked out. | Check Unlock Account and Apply | . ",
     "url": "/passwd-recovery.html#using-aduc",
     
     "relUrl": "/passwd-recovery.html#using-aduc"
-  },"11": {
+  },"24": {
     "doc": "Password Recovery",
     "title": "Potential Improvements:",
     "content": ". | Automation | Self Service like on Azure | . ",
     "url": "/passwd-recovery.html#potential-improvements",
     
     "relUrl": "/passwd-recovery.html#potential-improvements"
-  },"12": {
+  },"25": {
     "doc": "PowerShell",
     "title": "Powershell Scripts",
     "content": "GPO User into OU from Group . ",
     "url": "/powershell.html#powershell-scripts",
     
     "relUrl": "/powershell.html#powershell-scripts"
-  },"13": {
+  },"26": {
     "doc": "PowerShell",
     "title": "PowerShell",
     "content": " ",
     "url": "/powershell.html",
     
     "relUrl": "/powershell.html"
-  },"14": {
+  },"27": {
     "doc": "User LifeCycle AD",
     "title": "User LifeCycle AD",
     "content": "Basic user lifecycle: . | Create User | Add to Group | Change Role | Disable User | Remove from Group | . Creating User: . Add to Group: . Changing Roles: . Disabling Account: . | Note: I had to create an OU for terminated employees | Then I added Angle to the Offboarded OU | . Deleting From Group . Notes: . | May script in future but wanted the basics first | . ",

@@ -1,6 +1,5 @@
 title: My IT Docs
 remote_theme: pmarsceill/just-the-docs
-color_scheme: dark
 highlighter: rouge
 markdown: kramdown
 nav:
