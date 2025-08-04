@@ -3,4 +3,6 @@ title: Azure
 nav_order: 3
 ---
 
-Test
+# Azure
+
+[Infrastructure as Code (VM)](iac.md)
