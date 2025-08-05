@@ -6,13 +6,9 @@ param proto string
 param source string
 param dest string
 param sourceip string
-param destip string = 'hvm01-pip'
 param access 'Allow' | 'Deny'
 param direction 'Inbound' | 'Outbound'
 
-resource existingIp 'Microsoft.Network/publicIPAddresses@2024-07-01' existing = {
-  name: destip
-}
 
 resource networkSecurityGroup 'Microsoft.Network/networkSecurityGroups@2024-07-01' = {
   name: secGroup
