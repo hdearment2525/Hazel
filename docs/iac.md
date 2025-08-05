@@ -10,7 +10,7 @@ nav_exclude: true
 
 [Deployment](#deployment)
 
-Paramaters:
+# Paramaters:
 
 ---
 ```bicep

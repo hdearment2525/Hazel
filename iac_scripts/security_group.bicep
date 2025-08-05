@@ -10,6 +10,7 @@ param access 'Allow' | 'Deny'
 param direction 'Inbound' | 'Outbound'
 
 
+
 resource networkSecurityGroup 'Microsoft.Network/networkSecurityGroups@2024-07-01' = {
   name: secGroup
   location: location
