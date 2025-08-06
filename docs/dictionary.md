@@ -1,9 +1,9 @@
 ---
-title: PowerShell
+title: Dictionary
 nav_order: 5
 ---
 
-# Dictionary
+# Dictionary 
 
 [Azure Helpers](azps.md)
 
