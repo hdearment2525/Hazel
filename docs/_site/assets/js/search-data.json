@@ -62,328 +62,342 @@
     
     "relUrl": "/azure.html"
   },"9": {
+    "doc": "PowerShell",
+    "title": "Dictionary",
+    "content": "Azure Helpers . Gpo Testing . Gpo Script . IAC . Security IAC . IAC Script . AD Password Recovery . User Life Cycles . ",
+    "url": "/dictionary.html#dictionary",
+    
+    "relUrl": "/dictionary.html#dictionary"
+  },"10": {
+    "doc": "PowerShell",
+    "title": "PowerShell",
+    "content": " ",
+    "url": "/dictionary.html",
+    
+    "relUrl": "/dictionary.html"
+  },"11": {
     "doc": "GPO Testing",
     "title": "GPO Testing",
     "content": ". Testing Group Policy Objects: . | First: created a very basic gpo with just a name and comment | Second: before even deciding what to do in the gpo I link it through powershell to the OU | . Appling a policy: . | The policy should now be visible in the Group Policy Management Application | Then you can right click it to edit and find what you want to do | For the control panel it is pretty straight-forward as there is an adminstrative preset | So I went in to the policy called prohibit access to control panel and enabled/applied it | . Another way to link: . | While the powershell linking should work most of the time. You can also link it in the GPMC | So to do that you simply drag the GPO into the ou you want it to apply to. | . Trying to use Control Panel: . | Since this user is a part of the affected OU they are not able to access the control panel! | . Some thoughts: . | I had to add the user to the OU since a group member doesn’t inherit the group ou gpo’s | My current plan to make this better would be to automate it. | Specifically if they were added to a group with ou they would automatically be added to it on creation and activation. | . ",
     "url": "/gpo-testing.html",
     
     "relUrl": "/gpo-testing.html"
-  },"10": {
+  },"12": {
     "doc": "GPO Automating Group to OU",
     "title": "GPO Automating Group to OU",
     "content": ". While trying to setup the gpo for blocking control panel I ran into a problem. I had a slight misunderstanding on groups and organizational units so I decided to fix the issue. By automatically adding users in a group to the ou of their group since its not inherited that way. . So the marketing department is already set up, but the one member in the Finance Department is not! . Here is my script: . | For now it asks which department you would like to fix | Then it gets the distinguished name and tries to move the user into the target path | If they are already in the OU then noting happens, if they are in another OU they get a warning | Finally if they arent apart of any ou then they are added to the groups Organziation Unit | . . Finally as you can see our one member (Jessie Stark) of marketing is now in the OU with their parent group! . ",
     "url": "/gposcript1.html",
     
     "relUrl": "/gposcript1.html"
-  },"11": {
+  },"13": {
     "doc": "Infrastructure as Code Deploying A VM",
     "title": "Infrastructure as Code Deploying A VM",
     "content": ". ",
     "url": "/iac.html",
     
     "relUrl": "/iac.html"
-  },"12": {
+  },"14": {
     "doc": "Infrastructure as Code Deploying A VM",
     "title": "Creating the Resources and VM",
     "content": "Deployment . ",
     "url": "/iac.html#creating-the-resources-and-vm",
     
     "relUrl": "/iac.html#creating-the-resources-and-vm"
-  },"13": {
+  },"15": {
     "doc": "Infrastructure as Code Deploying A VM",
     "title": "Paramaters:",
     "content": ". // location of region, for Hazel param location string = resourceGroup().location // vm name param vmName string = 'tname01' // username to be given as param param ausername string // secure pass given as param @secure() param apassword string . Notes: . | In order to maintain some security I really didn’t allow too many hard coded paramaters. | Also making sure to define the password param as @secure() | . Virtual Machine: . | So a few things, building a vm resource requrieres a lot of other components | Storage for diagnostics | Virtual Net | Network Interface | Public IP (due to free subscription) | . ",
     "url": "/iac.html#paramaters",
     
     "relUrl": "/iac.html#paramaters"
-  },"14": {
+  },"16": {
     "doc": "Infrastructure as Code Deploying A VM",
     "title": "Diagnostic Storage:",
     "content": ". // storage resource for vm diagnostics storage resource storage 'Microsoft.Storage/storageAccounts@2025-01-01' = { name: 'diag${uniqueString(resourceGroup().id)}' location: location sku: { name: 'Standard_LRS' } kind: 'StorageV2' properties: {} } . On Dianostic Storage: . | This is something that I didn’t consider you would need while deploying | But it is important for boot failures and low level logs | . ",
     "url": "/iac.html#diagnostic-storage",
     
     "relUrl": "/iac.html#diagnostic-storage"
-  },"15": {
+  },"17": {
     "doc": "Infrastructure as Code Deploying A VM",
     "title": "Public IP:",
     "content": ". // static public ip address resource pip 'Microsoft.Network/publicIPAddresses@2024-07-01' = { name: '${vmName}-pip' location: location sku: {name: 'Standard'} // has to be static given free tier properties: { publicIPAllocationMethod: 'Static' } } . On Public IP (PIP): . | This is something that I only had to do because of the free subscribtion of azure | So I wasn’t able to use ‘dynamic’ allocation for the IPv4 | . ",
     "url": "/iac.html#public-ip",
     
     "relUrl": "/iac.html#public-ip"
-  },"16": {
+  },"18": {
     "doc": "Infrastructure as Code Deploying A VM",
     "title": "Virtual Net:",
     "content": ". // virtual network for infrasture and vm deployment resource vnet 'Microsoft.Network/virtualNetworks@2024-07-01' = { name: '${vmName}-vnet' location: location properties: { addressSpace: { addressPrefixes: [ '10.0.0.0/16' ] } subnets: [ { name: 'default' properties: { addressPrefix: '10.0.0.0/24' } } ] } } . On vNets: . | The vNet is like a virtual version of a LAN | Your VM uses the vNet to communcate with eachother | . ",
     "url": "/iac.html#virtual-net",
     
     "relUrl": "/iac.html#virtual-net"
-  },"17": {
+  },"19": {
     "doc": "Infrastructure as Code Deploying A VM",
     "title": "Network Interface:",
     "content": ". // network interface controller // attaches vm to a subnet resource nic 'Microsoft.Network/networkInterfaces@2024-07-01' = { name: '${vmName}-nic' location: location properties: { ipConfigurations: [ { name: 'ipconfig1' properties: { privateIPAllocationMethod: 'Dynamic' publicIPAddress: { id: pip.id } subnet: { id: resourceId('Microsoft.Network/virtualNetworks/subnets', '${vmName}-vnet', 'default') } } } ] } dependsOn: [ vnet pip ] } . On NIC’s: . | Get’s a private and public IP from the subnet in our vNet | Required for the VM to talk to the network | . ",
     "url": "/iac.html#network-interface",
     
     "relUrl": "/iac.html#network-interface"
-  },"18": {
+  },"20": {
     "doc": "Infrastructure as Code Deploying A VM",
     "title": "Virtual Machine:",
     "content": ". // actual virtual machine declaration resource ubuntuVM 'Microsoft.Compute/virtualMachines@2024-11-01' = { name: vmName location: location properties: { hardwareProfile: { // modern v2 iso storage vmSize: 'Standard_D2s_v3' } osProfile: { computerName: vmName adminUsername: ausername adminPassword: apassword linuxConfiguration: { disablePasswordAuthentication: false } } // offer gave me trouble when defining, but it has to match // with sku storageProfile: { imageReference: { publisher: 'Canonical' offer: '0001-com-ubuntu-server-focal' sku: '20_04-lts-gen2' version: 'latest' } osDisk: { createOption: 'FromImage' } } networkProfile: { networkInterfaces: [ { id: nic.id } ] } diagnosticsProfile: { bootDiagnostics: { enabled: true storageUri: 'https://${storage.name}.blob.${environment().suffixes.storage}/' } } } dependsOn: [ nic storage ] } . On Virtual Machine: . | First thing were going to do is declare an UbuntuVm resource | Then some parameters name and location from our params | Then to properties which is what we did all of the dependencies for! | . | Hardware Profile is the kind of machine were using on the cloud | OS Profile is our admin login information and will be supplied as a parameter. | Storage profile is basically the type of storage drives were using . | Note: Hardware Profile and Storage Profile must be compatible. | . | OS disk is created from our VM Image | Is our network profile, which we set up with the pip, vNet, and nic | Finally our boot diagnostics which we set up earlier as well. | . ",
     "url": "/iac.html#virtual-machine",
     
     "relUrl": "/iac.html#virtual-machine"
-  },"19": {
+  },"21": {
     "doc": "Infrastructure as Code Deploying A VM",
     "title": "Deployment:",
     "content": ". | Create an azure account . | Install Az in Powershell | . | Create a resource group . | In Powershell | Through the Azure Portal | . | Confirm Resource Group Exists . | Confirm Group | . | Deploy Script . | Basic Script Deployment | Install Bicep if you haven’t then run script | . | . winget install -e --id Microsoft.Bicep . | Deployed | . Powershell: . Azure: . Notes: . | Can be improved with a json param file. TBD | Will need to still create security groups! | . ",
     "url": "/iac.html#deployment",
     
     "relUrl": "/iac.html#deployment"
-  },"20": {
+  },"22": {
     "doc": "Security Group / Rule Powershell Script",
     "title": "Security Group / Rule Powershell Script",
     "content": "Back to Azure Back to Sec Groups . # deploy #specialized to secGroup but lets leave it for now. param ( [string]$resourceGroupName, [string]$filePath, [string]$scriptType ) $mainInput = '' # Set a class to work as a struct but may have not needed the indexing class CmdValue { [string]$value [int]$index CmdValue([string]$value, [int]$index) { $this.value = $value $this.index = $index } } # function to getInput for a value(param) function getInput { param ( [string]$value, [int]$index ) $confirm = '' while ($confirm.ToLower() -ne \"y\" -and $confirm.ToLower() -ne \"yes\") { $userValue = Read-Host \"Enter value for $value\" $confirm = Read-Host \"Confirm: $value = $userValue, Enter y or yes\" } $commandValue = [CmdValue]::new($userValue, $index) return $commandValue } # For the help function function printOptions { param( [CmdValue[]]$arr ) for($i = 0; $i -lt $arr.Length; $i++) { Write-Host \"$i.\" $arr[$i].value } } # changing choices of your list this works for any length function changeChoices { param( [CmdValue[]]$arr ) $len = $arr.Length - 1 $exit = Read-Host \"Enter value to change? Enter exit to quit.\" while ($exit -ne \"exit\") { if ($exit -notin 0..$len) { $exit = Read-Host \"Enter a value in range. Or enter exit to quit\" } else { $exit = [int]$exit $index = $arr[$exit].value $newValue = Read-Host \"Enter new value for $index :\" $confirm = '' while ($true) { $confirm = Read-Host \"Confirm $newValue as new value? y/yes or no\" if ($confirm -eq \"y\" -or $confirm -eq \"yes\") { $arr[$exit].value = $newValue break } else { Write-Host \"Not confirmed....\" break } } if ($confirm -eq \"y\" -or $confirm -eq \"yes\") { break } } } return $arr } # declaring the read input functions $secRule = getInput -value \"Security Group Rule\" -index 0 $desc = getInput -value \"Description\" -index 1 $proto = getInput -value \"Protocol\" -index 2 $destPort = getInput -value \"Destination Port Range\" -index 3 $sourceAddress = getInput -value \"Source IP Address\" -index 4 $access = getInput -value \"Access\" -index 5 $direction = getInput -value \"Direction\" -index 6 # a list of the commands (could) be improved $cmdList = @( $secRule $desc $proto $destPort $sourceAddress $access $direction ) # checking param if ($scriptType -eq \"sr\") { $priority = getInput -value \"Priority\" -index 7 $cmdList += $priority } # Main loop to run the cli tool and get all the information $superConfirm = '' $exitCheck = '' while ($superConfirm -ne \"y\" -and $superConfirm -ne \"yes\" -and $superConfirm -ne \"exit\") { $superConfirm = Read-Host \"Confirm these values y or yes and h or help to reprint\" if ($superConfirm -eq \"h\" -or $superConfirm -eq \"help\") { Write-Host \"Values:\" printOptions -arr $cmdList } elseif ($superConfirm -ne \"y\" -or $superConfirm -ne \"yes\") { while ($true) { $exitCheck = Read-Host \"Would you like to exit, or edit your values?\" if ($exitCheck -eq \"exit\" -or $exitCheck -eq \"edit\" ) { break } Write-Host \"Please Enter Exit or Edit\" } if ($exitCheck -eq \"edit\") { Write-Host \"Edititing\" $newArr = changeChoices -arr $cmdList } else { Write-Host \"Exiting\" $newArr = $cmdList break } } else { continue } } # to be packaged into a param object $params = @{ secRule = [string]$newArr[0].value desc = [string]$newArr[1].value proto = [string]$newArr[2].value dest = [string]$newArr[3].value sourceip = [string]$newArr[4].value access = [string]$newArr[5].value direction = [string]$newArr[6].value } if ($scriptType -eq \"sr\") { $params[\"priority\"] = [int]$newArr[7].value } # Try to deploy try { New-AzResourceGroupDeployment ` -ResourceGroupName $resourceGroupName ` -TemplateFile $filePath ` -TemplateParameterObject $params } catch { Write-Host ($_.Exception.Message) } . ",
     "url": "/iacscript1.html",
     
     "relUrl": "/iacscript1.html"
-  },"21": {
+  },"23": {
     "doc": "Home",
     "title": "Hailee DeArment’s Documentation &amp; Portfolio!",
     "content": ". ",
     "url": "/#hailee-dearments-documentation--portfolio",
     
     "relUrl": "/#hailee-dearments-documentation--portfolio"
-  },"22": {
+  },"24": {
     "doc": "Home",
     "title": "Home",
     "content": " ",
     "url": "/",
     
     "relUrl": "/"
-  },"23": {
+  },"25": {
     "doc": "Password Recovery",
     "title": "Password Recovery",
     "content": ". Our user is locked out of their account after 5 failed login attempts. I have two options: . | Use Powershell | Use AD Users &amp; Groups | . ",
     "url": "/passwd-recovery.html",
     
     "relUrl": "/passwd-recovery.html"
-  },"24": {
+  },"26": {
     "doc": "Password Recovery",
     "title": "Using Powershell:",
     "content": ". | Searching for all accounts that are locked out. | Unlocking account based on SamAccountName | Checking to see if the account is still locked out, which it isn’t | . ",
     "url": "/passwd-recovery.html#using-powershell",
     
     "relUrl": "/passwd-recovery.html#using-powershell"
-  },"25": {
+  },"27": {
     "doc": "Password Recovery",
     "title": "Using ADUC:",
     "content": ". | Open Active Directory Users and Computers | Navigate to the user who is locked out. | Check Unlock Account and Apply | . ",
     "url": "/passwd-recovery.html#using-aduc",
     
     "relUrl": "/passwd-recovery.html#using-aduc"
-  },"26": {
+  },"28": {
     "doc": "Password Recovery",
     "title": "Potential Improvements:",
     "content": ". | Automation | Self Service like on Azure | . ",
     "url": "/passwd-recovery.html#potential-improvements",
     
     "relUrl": "/passwd-recovery.html#potential-improvements"
-  },"27": {
+  },"29": {
     "doc": "PowerShell",
     "title": "Powershell Scripts",
     "content": "GPO User into OU from Group . Script to auto deploy a security group or rule . ",
     "url": "/powershell.html#powershell-scripts",
     
     "relUrl": "/powershell.html#powershell-scripts"
-  },"28": {
+  },"30": {
     "doc": "PowerShell",
     "title": "PowerShell",
     "content": " ",
     "url": "/powershell.html",
     
     "relUrl": "/powershell.html"
-  },"29": {
+  },"31": {
     "doc": "Security Group Creation with IAC",
     "title": "Security Group Creation with IAC",
     "content": "Skip to Deployment . ",
     "url": "/sec_groups_iac.html",
     
     "relUrl": "/sec_groups_iac.html"
-  },"30": {
+  },"32": {
     "doc": "Security Group Creation with IAC",
     "title": "Params:",
     "content": "param location string = resourceGroup().location param secGroup string = 'sg01' param secRule string param desc string param proto string param source string param dest string param sourceip string param access 'Allow' | 'Deny' param direction 'Inbound' | 'Outbound' . Our Params are a little more involved for the security groups mostly because we do not want to expose any of the information. ",
     "url": "/sec_groups_iac.html#params",
     
     "relUrl": "/sec_groups_iac.html#params"
-  },"31": {
+  },"33": {
     "doc": "Security Group Creation with IAC",
     "title": "Script:",
     "content": "resource networkSecurityGroup 'Microsoft.Network/networkSecurityGroups@2024-07-01' = { name: secGroup location: location properties: { securityRules: [ { name: secRule properties: { description: desc protocol: proto sourcePortRange: source destinationPortRange: dest sourceAddressPrefix: sourceip destinationAddressPrefix: '*' access: access priority: 101 direction: direction } } ] } } . This could have been declared in the properties in the VM deployement. However I think it useful to have seprateley so you can create multiple security groups. I want to go over each varaible in the script. ",
     "url": "/sec_groups_iac.html#script",
     
     "relUrl": "/sec_groups_iac.html#script"
-  },"32": {
+  },"34": {
     "doc": "Security Group Creation with IAC",
     "title": "Top Level Name:",
     "content": "This is the name of your security group. ",
     "url": "/sec_groups_iac.html#top-level-name",
     
     "relUrl": "/sec_groups_iac.html#top-level-name"
-  },"33": {
+  },"35": {
     "doc": "Security Group Creation with IAC",
     "title": "Location:",
     "content": "This is your region like US-West2 . ",
     "url": "/sec_groups_iac.html#location",
     
     "relUrl": "/sec_groups_iac.html#location"
-  },"34": {
+  },"36": {
     "doc": "Security Group Creation with IAC",
     "title": "Security Rule:",
     "content": "This will be a base security rule, and we can also create them in a seperate script. Which I will go into detail now and hop over to a security rule script. ",
     "url": "/sec_groups_iac.html#security-rule",
     
     "relUrl": "/sec_groups_iac.html#security-rule"
-  },"35": {
+  },"37": {
     "doc": "Security Group Creation with IAC",
     "title": "Security Rule Script:",
     "content": "resource existingIp 'Microsoft.Network/publicIPAddresses@2024-07-01' existing = { name: destip } resource securityRule 'Microsoft.Network/networkSecurityGroups/securityRules@2024-07-01' = { name: '${secGroup}/${secRule}' properties: { description: desc protocol: proto sourcePortRange: '*' destinationPortRange: dest sourceAddressPrefix: sourceip destinationAddressPrefix: existingIp.properties.ipAddress access: access direction: direction priority: priority } } . Lets break this down. ",
     "url": "/sec_groups_iac.html#security-rule-script",
     
     "relUrl": "/sec_groups_iac.html#security-rule-script"
-  },"36": {
+  },"38": {
     "doc": "Security Group Creation with IAC",
     "title": "Existing IP Resource:",
     "content": "This is what we declared when creating the resource group for the security rule . ",
     "url": "/sec_groups_iac.html#existing-ip-resource",
     
     "relUrl": "/sec_groups_iac.html#existing-ip-resource"
-  },"37": {
+  },"39": {
     "doc": "Security Group Creation with IAC",
     "title": "Security Rule Name",
     "content": "This is just a combination of our specific rule with our group . ",
     "url": "/sec_groups_iac.html#security-rule-name",
     
     "relUrl": "/sec_groups_iac.html#security-rule-name"
-  },"38": {
+  },"40": {
     "doc": "Security Group Creation with IAC",
     "title": "Description",
     "content": "Is a short description of our rule . ",
     "url": "/sec_groups_iac.html#description",
     
     "relUrl": "/sec_groups_iac.html#description"
-  },"39": {
+  },"41": {
     "doc": "Security Group Creation with IAC",
     "title": "Protocol",
     "content": "TCP, ICMP, UDP, etc . ",
     "url": "/sec_groups_iac.html#protocol",
     
     "relUrl": "/sec_groups_iac.html#protocol"
-  },"40": {
+  },"42": {
     "doc": "Security Group Creation with IAC",
     "title": "Source Port Range:",
     "content": "Set to All because it makes it easier to connect to the vm . ",
     "url": "/sec_groups_iac.html#source-port-range",
     
     "relUrl": "/sec_groups_iac.html#source-port-range"
-  },"41": {
+  },"43": {
     "doc": "Security Group Creation with IAC",
     "title": "Dest Port Range",
     "content": "This is way more important to specify, for example 22 for SSH, or 80 for HTTP . ",
     "url": "/sec_groups_iac.html#dest-port-range",
     
     "relUrl": "/sec_groups_iac.html#dest-port-range"
-  },"42": {
+  },"44": {
     "doc": "Security Group Creation with IAC",
     "title": "Source Address",
     "content": "This is our connecting computer’s ip address . ",
     "url": "/sec_groups_iac.html#source-address",
     
     "relUrl": "/sec_groups_iac.html#source-address"
-  },"43": {
+  },"45": {
     "doc": "Security Group Creation with IAC",
     "title": "Dest Address",
     "content": "This is what we specified when we created the IP resource to get our VM’s public IP . ",
     "url": "/sec_groups_iac.html#dest-address",
     
     "relUrl": "/sec_groups_iac.html#dest-address"
-  },"44": {
+  },"46": {
     "doc": "Security Group Creation with IAC",
     "title": "Access",
     "content": "This is allow or deny this specific connection . ",
     "url": "/sec_groups_iac.html#access",
     
     "relUrl": "/sec_groups_iac.html#access"
-  },"45": {
+  },"47": {
     "doc": "Security Group Creation with IAC",
     "title": "Direction",
     "content": "Inbound or Outbound usually . ",
     "url": "/sec_groups_iac.html#direction",
     
     "relUrl": "/sec_groups_iac.html#direction"
-  },"46": {
+  },"48": {
     "doc": "Security Group Creation with IAC",
     "title": "Priority",
     "content": "This one is sneakily important it designates the order in which the rules apply. ",
     "url": "/sec_groups_iac.html#priority",
     
     "relUrl": "/sec_groups_iac.html#priority"
-  },"47": {
+  },"49": {
     "doc": "Security Group Creation with IAC",
     "title": "Deployment",
     "content": " ",
     "url": "/sec_groups_iac.html#deployment",
     
     "relUrl": "/sec_groups_iac.html#deployment"
-  },"48": {
+  },"50": {
     "doc": "Security Group Creation with IAC",
     "title": "Security Group/Rule:",
     "content": ". | Login in to Az Account . | Go on a tangent to create a powershell script to run it instead. | ",
     "url": "/sec_groups_iac.html#security-grouprule",
     
     "relUrl": "/sec_groups_iac.html#security-grouprule"
-  },"49": {
+  },"51": {
     "doc": "Security Group Creation with IAC",
     "title": "Run Script",
     "content": "./psscript.ps -resourceGroupName \"RG\" -filePath \"relative file path\" -scriptType \"sr or sg\" . | ",
     "url": "/sec_groups_iac.html#run-script",
     
     "relUrl": "/sec_groups_iac.html#run-script"
-  },"50": {
+  },"52": {
     "doc": "Security Group Creation with IAC",
     "title": "Enter values into Script",
     "content": ". | . | ",
     "url": "/sec_groups_iac.html#enter-values-into-script",
     
     "relUrl": "/sec_groups_iac.html#enter-values-into-script"
-  },"51": {
+  },"53": {
     "doc": "Security Group Creation with IAC",
     "title": "On Azure",
     "content": ". | . ",
     "url": "/sec_groups_iac.html#on-azure",
     
     "relUrl": "/sec_groups_iac.html#on-azure"
-  },"52": {
+  },"54": {
     "doc": "Security Group Creation with IAC",
     "title": "Security Rule",
     "content": ". | Use the same script as before but change the value to “sr” instead of sg . | This script has one more value priority, as long as its above the previous rule it should be fine . | ",
     "url": "/sec_groups_iac.html#security-rule-1",
     
     "relUrl": "/sec_groups_iac.html#security-rule-1"
-  },"53": {
+  },"55": {
     "doc": "Security Group Creation with IAC",
     "title": "Deploying the script",
     "content": ". | . | ",
     "url": "/sec_groups_iac.html#deploying-the-script",
     
     "relUrl": "/sec_groups_iac.html#deploying-the-script"
-  },"54": {
+  },"56": {
     "doc": "Security Group Creation with IAC",
     "title": "Confirming on Azure",
     "content": ". | . ",
     "url": "/sec_groups_iac.html#confirming-on-azure",
     
     "relUrl": "/sec_groups_iac.html#confirming-on-azure"
-  },"55": {
+  },"57": {
     "doc": "User LifeCycle AD",
     "title": "User LifeCycle AD",
     "content": "Basic user lifecycle: . | Create User | Add to Group | Change Role | Disable User | Remove from Group | . Creating User: . Add to Group: . Changing Roles: . Disabling Account: . | Note: I had to create an OU for terminated employees | Then I added Angle to the Offboarded OU | . Deleting From Group . Notes: . | May script in future but wanted the basics first | . ",
