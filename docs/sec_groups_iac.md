@@ -155,8 +155,45 @@ This one is sneakily important it designates the order in which the rules apply.
 
 # Deployment
 
-## Security Group:
+## Security Group/Rule:
 
 1. Login in to [Az Account](azps.md#login-to-azure-account)
 
-2. 
+2. Go on a tangent to [create a powershell script](iacscript1.md) to run it instead.
+
+3. Run Script
+---
+```powershell
+./psscript.ps -resourceGroupName "RG" -filePath "relative file path" -scriptType "sr or sg"
+```
+---
+
+4. Enter values into Script
+---
+![Screenshot](./images/iac/deploy_secgroup.png)
+
+---
+
+5. On Azure
+---
+![Screenshot](./images/iac/confirmsecgroup.png)
+
+---
+
+## Security Rule
+
+1. Use the same script as before but change the value to "sr" instead of sg
+
+2. This script has one more value priority, as long as its above the previous rule it should be fine
+
+3. Deploying the script
+---
+![Screenshot](./images/iac/rulescript.png)
+
+---
+
+4. Confirming on Azure
+---
+![Screenshot](./images/iac/rdp_azure.png)
+
+---

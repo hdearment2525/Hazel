@@ -139,202 +139,251 @@
     
     "relUrl": "/iac.html#deployment"
   },"20": {
+    "doc": "Security Group / Rule Powershell Script",
+    "title": "Security Group / Rule Powershell Script",
+    "content": "Back to Azure Back to Sec Groups . # deploy #specialized to secGroup but lets leave it for now. param ( [string]$resourceGroupName, [string]$filePath, [string]$scriptType ) $mainInput = '' # Set a class to work as a struct but may have not needed the indexing class CmdValue { [string]$value [int]$index CmdValue([string]$value, [int]$index) { $this.value = $value $this.index = $index } } # function to getInput for a value(param) function getInput { param ( [string]$value, [int]$index ) $confirm = '' while ($confirm.ToLower() -ne \"y\" -and $confirm.ToLower() -ne \"yes\") { $userValue = Read-Host \"Enter value for $value\" $confirm = Read-Host \"Confirm: $value = $userValue, Enter y or yes\" } $commandValue = [CmdValue]::new($userValue, $index) return $commandValue } # For the help function function printOptions { param( [CmdValue[]]$arr ) for($i = 0; $i -lt $arr.Length; $i++) { Write-Host \"$i.\" $arr[$i].value } } # changing choices of your list this works for any length function changeChoices { param( [CmdValue[]]$arr ) $len = $arr.Length - 1 $exit = Read-Host \"Enter value to change? Enter exit to quit.\" while ($exit -ne \"exit\") { if ($exit -notin 0..$len) { $exit = Read-Host \"Enter a value in range. Or enter exit to quit\" } else { $exit = [int]$exit $index = $arr[$exit].value $newValue = Read-Host \"Enter new value for $index :\" $confirm = '' while ($true) { $confirm = Read-Host \"Confirm $newValue as new value? y/yes or no\" if ($confirm -eq \"y\" -or $confirm -eq \"yes\") { $arr[$exit].value = $newValue break } else { Write-Host \"Not confirmed....\" break } } if ($confirm -eq \"y\" -or $confirm -eq \"yes\") { break } } } return $arr } # declaring the read input functions $secRule = getInput -value \"Security Group Rule\" -index 0 $desc = getInput -value \"Description\" -index 1 $proto = getInput -value \"Protocol\" -index 2 $destPort = getInput -value \"Destination Port Range\" -index 3 $sourceAddress = getInput -value \"Source IP Address\" -index 4 $access = getInput -value \"Access\" -index 5 $direction = getInput -value \"Direction\" -index 6 # a list of the commands (could) be improved $cmdList = @( $secRule $desc $proto $destPort $sourceAddress $access $direction ) # checking param if ($scriptType -eq \"sr\") { $priority = getInput -value \"Priority\" -index 7 $cmdList += $priority } # Main loop to run the cli tool and get all the information $superConfirm = '' $exitCheck = '' while ($superConfirm -ne \"y\" -and $superConfirm -ne \"yes\" -and $superConfirm -ne \"exit\") { $superConfirm = Read-Host \"Confirm these values y or yes and h or help to reprint\" if ($superConfirm -eq \"h\" -or $superConfirm -eq \"help\") { Write-Host \"Values:\" printOptions -arr $cmdList } elseif ($superConfirm -ne \"y\" -or $superConfirm -ne \"yes\") { while ($true) { $exitCheck = Read-Host \"Would you like to exit, or edit your values?\" if ($exitCheck -eq \"exit\" -or $exitCheck -eq \"edit\" ) { break } Write-Host \"Please Enter Exit or Edit\" } if ($exitCheck -eq \"edit\") { Write-Host \"Edititing\" $newArr = changeChoices -arr $cmdList } else { Write-Host \"Exiting\" $newArr = $cmdList break } } else { continue } } # to be packaged into a param object $params = @{ secRule = [string]$newArr[0].value desc = [string]$newArr[1].value proto = [string]$newArr[2].value dest = [string]$newArr[3].value sourceip = [string]$newArr[4].value access = [string]$newArr[5].value direction = [string]$newArr[6].value } if ($scriptType -eq \"sr\") { $params[\"priority\"] = [int]$newArr[7].value } # Try to deploy try { New-AzResourceGroupDeployment ` -ResourceGroupName $resourceGroupName ` -TemplateFile $filePath ` -TemplateParameterObject $params } catch { Write-Host ($_.Exception.Message) } . ",
+    "url": "/iacscript1.html",
+    
+    "relUrl": "/iacscript1.html"
+  },"21": {
     "doc": "Home",
     "title": "Hailee DeArment’s Documentation &amp; Portfolio!",
     "content": ". ",
     "url": "/#hailee-dearments-documentation--portfolio",
     
     "relUrl": "/#hailee-dearments-documentation--portfolio"
-  },"21": {
+  },"22": {
     "doc": "Home",
     "title": "Home",
     "content": " ",
     "url": "/",
     
     "relUrl": "/"
-  },"22": {
+  },"23": {
     "doc": "Password Recovery",
     "title": "Password Recovery",
     "content": ". Our user is locked out of their account after 5 failed login attempts. I have two options: . | Use Powershell | Use AD Users &amp; Groups | . ",
     "url": "/passwd-recovery.html",
     
     "relUrl": "/passwd-recovery.html"
-  },"23": {
+  },"24": {
     "doc": "Password Recovery",
     "title": "Using Powershell:",
     "content": ". | Searching for all accounts that are locked out. | Unlocking account based on SamAccountName | Checking to see if the account is still locked out, which it isn’t | . ",
     "url": "/passwd-recovery.html#using-powershell",
     
     "relUrl": "/passwd-recovery.html#using-powershell"
-  },"24": {
+  },"25": {
     "doc": "Password Recovery",
     "title": "Using ADUC:",
     "content": ". | Open Active Directory Users and Computers | Navigate to the user who is locked out. | Check Unlock Account and Apply | . ",
     "url": "/passwd-recovery.html#using-aduc",
     
     "relUrl": "/passwd-recovery.html#using-aduc"
-  },"25": {
+  },"26": {
     "doc": "Password Recovery",
     "title": "Potential Improvements:",
     "content": ". | Automation | Self Service like on Azure | . ",
     "url": "/passwd-recovery.html#potential-improvements",
     
     "relUrl": "/passwd-recovery.html#potential-improvements"
-  },"26": {
+  },"27": {
     "doc": "PowerShell",
     "title": "Powershell Scripts",
-    "content": "GPO User into OU from Group . ",
+    "content": "GPO User into OU from Group . Script to auto deploy a security group or rule . ",
     "url": "/powershell.html#powershell-scripts",
     
     "relUrl": "/powershell.html#powershell-scripts"
-  },"27": {
+  },"28": {
     "doc": "PowerShell",
     "title": "PowerShell",
     "content": " ",
     "url": "/powershell.html",
     
     "relUrl": "/powershell.html"
-  },"28": {
+  },"29": {
     "doc": "Security Group Creation with IAC",
     "title": "Security Group Creation with IAC",
     "content": "Skip to Deployment . ",
     "url": "/sec_groups_iac.html",
     
     "relUrl": "/sec_groups_iac.html"
-  },"29": {
+  },"30": {
     "doc": "Security Group Creation with IAC",
     "title": "Params:",
     "content": "param location string = resourceGroup().location param secGroup string = 'sg01' param secRule string param desc string param proto string param source string param dest string param sourceip string param access 'Allow' | 'Deny' param direction 'Inbound' | 'Outbound' . Our Params are a little more involved for the security groups mostly because we do not want to expose any of the information. ",
     "url": "/sec_groups_iac.html#params",
     
     "relUrl": "/sec_groups_iac.html#params"
-  },"30": {
+  },"31": {
     "doc": "Security Group Creation with IAC",
     "title": "Script:",
     "content": "resource networkSecurityGroup 'Microsoft.Network/networkSecurityGroups@2024-07-01' = { name: secGroup location: location properties: { securityRules: [ { name: secRule properties: { description: desc protocol: proto sourcePortRange: source destinationPortRange: dest sourceAddressPrefix: sourceip destinationAddressPrefix: '*' access: access priority: 101 direction: direction } } ] } } . This could have been declared in the properties in the VM deployement. However I think it useful to have seprateley so you can create multiple security groups. I want to go over each varaible in the script. ",
     "url": "/sec_groups_iac.html#script",
     
     "relUrl": "/sec_groups_iac.html#script"
-  },"31": {
+  },"32": {
     "doc": "Security Group Creation with IAC",
     "title": "Top Level Name:",
     "content": "This is the name of your security group. ",
     "url": "/sec_groups_iac.html#top-level-name",
     
     "relUrl": "/sec_groups_iac.html#top-level-name"
-  },"32": {
+  },"33": {
     "doc": "Security Group Creation with IAC",
     "title": "Location:",
     "content": "This is your region like US-West2 . ",
     "url": "/sec_groups_iac.html#location",
     
     "relUrl": "/sec_groups_iac.html#location"
-  },"33": {
+  },"34": {
     "doc": "Security Group Creation with IAC",
     "title": "Security Rule:",
     "content": "This will be a base security rule, and we can also create them in a seperate script. Which I will go into detail now and hop over to a security rule script. ",
     "url": "/sec_groups_iac.html#security-rule",
     
     "relUrl": "/sec_groups_iac.html#security-rule"
-  },"34": {
+  },"35": {
     "doc": "Security Group Creation with IAC",
     "title": "Security Rule Script:",
     "content": "resource existingIp 'Microsoft.Network/publicIPAddresses@2024-07-01' existing = { name: destip } resource securityRule 'Microsoft.Network/networkSecurityGroups/securityRules@2024-07-01' = { name: '${secGroup}/${secRule}' properties: { description: desc protocol: proto sourcePortRange: '*' destinationPortRange: dest sourceAddressPrefix: sourceip destinationAddressPrefix: existingIp.properties.ipAddress access: access direction: direction priority: priority } } . Lets break this down. ",
     "url": "/sec_groups_iac.html#security-rule-script",
     
     "relUrl": "/sec_groups_iac.html#security-rule-script"
-  },"35": {
+  },"36": {
     "doc": "Security Group Creation with IAC",
     "title": "Existing IP Resource:",
     "content": "This is what we declared when creating the resource group for the security rule . ",
     "url": "/sec_groups_iac.html#existing-ip-resource",
     
     "relUrl": "/sec_groups_iac.html#existing-ip-resource"
-  },"36": {
+  },"37": {
     "doc": "Security Group Creation with IAC",
     "title": "Security Rule Name",
     "content": "This is just a combination of our specific rule with our group . ",
     "url": "/sec_groups_iac.html#security-rule-name",
     
     "relUrl": "/sec_groups_iac.html#security-rule-name"
-  },"37": {
+  },"38": {
     "doc": "Security Group Creation with IAC",
     "title": "Description",
     "content": "Is a short description of our rule . ",
     "url": "/sec_groups_iac.html#description",
     
     "relUrl": "/sec_groups_iac.html#description"
-  },"38": {
+  },"39": {
     "doc": "Security Group Creation with IAC",
     "title": "Protocol",
     "content": "TCP, ICMP, UDP, etc . ",
     "url": "/sec_groups_iac.html#protocol",
     
     "relUrl": "/sec_groups_iac.html#protocol"
-  },"39": {
+  },"40": {
     "doc": "Security Group Creation with IAC",
     "title": "Source Port Range:",
     "content": "Set to All because it makes it easier to connect to the vm . ",
     "url": "/sec_groups_iac.html#source-port-range",
     
     "relUrl": "/sec_groups_iac.html#source-port-range"
-  },"40": {
+  },"41": {
     "doc": "Security Group Creation with IAC",
     "title": "Dest Port Range",
     "content": "This is way more important to specify, for example 22 for SSH, or 80 for HTTP . ",
     "url": "/sec_groups_iac.html#dest-port-range",
     
     "relUrl": "/sec_groups_iac.html#dest-port-range"
-  },"41": {
+  },"42": {
     "doc": "Security Group Creation with IAC",
     "title": "Source Address",
     "content": "This is our connecting computer’s ip address . ",
     "url": "/sec_groups_iac.html#source-address",
     
     "relUrl": "/sec_groups_iac.html#source-address"
-  },"42": {
+  },"43": {
     "doc": "Security Group Creation with IAC",
     "title": "Dest Address",
     "content": "This is what we specified when we created the IP resource to get our VM’s public IP . ",
     "url": "/sec_groups_iac.html#dest-address",
     
     "relUrl": "/sec_groups_iac.html#dest-address"
-  },"43": {
+  },"44": {
     "doc": "Security Group Creation with IAC",
     "title": "Access",
     "content": "This is allow or deny this specific connection . ",
     "url": "/sec_groups_iac.html#access",
     
     "relUrl": "/sec_groups_iac.html#access"
-  },"44": {
+  },"45": {
     "doc": "Security Group Creation with IAC",
     "title": "Direction",
     "content": "Inbound or Outbound usually . ",
     "url": "/sec_groups_iac.html#direction",
     
     "relUrl": "/sec_groups_iac.html#direction"
-  },"45": {
+  },"46": {
     "doc": "Security Group Creation with IAC",
     "title": "Priority",
     "content": "This one is sneakily important it designates the order in which the rules apply. ",
     "url": "/sec_groups_iac.html#priority",
     
     "relUrl": "/sec_groups_iac.html#priority"
-  },"46": {
+  },"47": {
     "doc": "Security Group Creation with IAC",
     "title": "Deployment",
     "content": " ",
     "url": "/sec_groups_iac.html#deployment",
     
     "relUrl": "/sec_groups_iac.html#deployment"
-  },"47": {
-    "doc": "Security Group Creation with IAC",
-    "title": "Security Group:",
-    "content": ". | Login in to Az Account . | | . ",
-    "url": "/sec_groups_iac.html#security-group",
-    
-    "relUrl": "/sec_groups_iac.html#security-group"
   },"48": {
+    "doc": "Security Group Creation with IAC",
+    "title": "Security Group/Rule:",
+    "content": ". | Login in to Az Account . | Go on a tangent to create a powershell script to run it instead. | ",
+    "url": "/sec_groups_iac.html#security-grouprule",
+    
+    "relUrl": "/sec_groups_iac.html#security-grouprule"
+  },"49": {
+    "doc": "Security Group Creation with IAC",
+    "title": "Run Script",
+    "content": "./psscript.ps -resourceGroupName \"RG\" -filePath \"relative file path\" -scriptType \"sr or sg\" . | ",
+    "url": "/sec_groups_iac.html#run-script",
+    
+    "relUrl": "/sec_groups_iac.html#run-script"
+  },"50": {
+    "doc": "Security Group Creation with IAC",
+    "title": "Enter values into Script",
+    "content": ". | . | ",
+    "url": "/sec_groups_iac.html#enter-values-into-script",
+    
+    "relUrl": "/sec_groups_iac.html#enter-values-into-script"
+  },"51": {
+    "doc": "Security Group Creation with IAC",
+    "title": "On Azure",
+    "content": ". | . ",
+    "url": "/sec_groups_iac.html#on-azure",
+    
+    "relUrl": "/sec_groups_iac.html#on-azure"
+  },"52": {
+    "doc": "Security Group Creation with IAC",
+    "title": "Security Rule",
+    "content": ". | Use the same script as before but change the value to “sr” instead of sg . | This script has one more value priority, as long as its above the previous rule it should be fine . | ",
+    "url": "/sec_groups_iac.html#security-rule-1",
+    
+    "relUrl": "/sec_groups_iac.html#security-rule-1"
+  },"53": {
+    "doc": "Security Group Creation with IAC",
+    "title": "Deploying the script",
+    "content": ". | . | ",
+    "url": "/sec_groups_iac.html#deploying-the-script",
+    
+    "relUrl": "/sec_groups_iac.html#deploying-the-script"
+  },"54": {
+    "doc": "Security Group Creation with IAC",
+    "title": "Confirming on Azure",
+    "content": ". | . ",
+    "url": "/sec_groups_iac.html#confirming-on-azure",
+    
+    "relUrl": "/sec_groups_iac.html#confirming-on-azure"
+  },"55": {
     "doc": "User LifeCycle AD",
     "title": "User LifeCycle AD",
     "content": "Basic user lifecycle: . | Create User | Add to Group | Change Role | Disable User | Remove from Group | . Creating User: . Add to Group: . Changing Roles: . Disabling Account: . | Note: I had to create an OU for terminated employees | Then I added Angle to the Offboarded OU | . Deleting From Group . Notes: . | May script in future but wanted the basics first | . ",

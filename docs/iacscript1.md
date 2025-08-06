@@ -1,4 +1,15 @@
-﻿# deploy 
+---
+nav_exclude: True
+---
+
+# Security Group / Rule Powershell Script
+
+[Back to Azure](azure.md)
+[Back to Sec Groups](sec_groups_iac.md)
+
+---
+```powershell
+# deploy 
 
 #specialized to secGroup but lets leave it for now.
 param (
@@ -174,3 +185,7 @@ try {
 catch {
     Write-Host ($_.Exception.Message)
 }
+
+```
+---
+
